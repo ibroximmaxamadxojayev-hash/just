@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Amazing Comfort Site</title>
+  <meta name="description" content="A modern, comfortable, and effective landing page—responsive, accessible, and animated." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="live-bg" aria-hidden="true"></div>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#">Comfort</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="#features">Features</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="controls">
+        <button id="theme-toggle" aria-label="Toggle theme">🌗</button>
+        <a class="cta" href="#contact">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-inner">
+        <div class="hero-content">
+          <h1 class="hero-title">Design that feels like home</h1>
+          <p class="hero-sub">Fast, accessible, and delightful experiences—built to be comfortable and effective for everyone.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">Start a Project</a>
+            <a class="btn btn-ghost" href="#features">See Features</a>
+          </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <video class="hero-video" autoplay muted loop playsinline poster="" aria-hidden="true">
+            <!-- Local preview: open the page; replace src with a custom mp4 for production -->
+            <source src="" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <section class="showcase" id="showcase">
+      <div class="container">
+        <div class="showcase-head">
+          <h2 class="section-title">Showcase</h2>
+          <div class="controls-row">
+            <input id="search" type="search" placeholder="Search projects" aria-label="Search projects" />
+            <select id="category-filter" aria-label="Filter by category">
+              <option value="all">All categories</option>
+              <option value="interactive">Interactive</option>
+              <option value="motion">Motion</option>
+              <option value="branding">Branding</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="showcase-grid" class="showcase-grid" role="list" aria-live="polite">
+          <!-- Entries are rendered by script.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal viewer for entries -->
+    <div id="modal" class="modal" hidden aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="modal-inner" role="document">
+        <button id="modal-close" class="modal-close" aria-label="Close">✕</button>
+        <div id="modal-content"></div>
+      </div>
+    </div>
+
+    <section class="features" id="features">
+      <div class="container">
+        <h2 class="section-title">Comfort-first features</h2>
+        <p class="section-lead">Built with accessibility, performance, and joyful micro-interactions in mind.</p>
+        <div class="grid">
+          <article class="card">
+            <div class="icon" aria-hidden="true">⚡</div>
+            <h3>Lightning fast</h3>
+            <p>Optimized for quick loads and smooth interactions across devices.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon" aria-hidden="true">♿</div>
+            <h3>Accessible</h3>
+            <p>Semantic markup and keyboard-first interactions for everyone.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon" aria-hidden="true">🎨</div>
+            <h3>Beautiful UX</h3>
+            <p>Comfortable spacing, readable type, and calm motion design.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon" aria-hidden="true">🔒</div>
+            <h3>Secure by default</h3>
+            <p>Simple, safe patterns that strip complexity and risk.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="container about-inner">
+        <div>
+          <h2>Why comfort matters</h2>
+          <p>When interfaces are comfortable, users move faster, make fewer errors, and enjoy the product more. We focus on clarity, predictable patterns, and subtle motion to guide attention without distraction.</p>
+        </div>
+        <div class="stats" aria-hidden="true">
+          <div class="stat">
+            <div class="num">99%</div>
+            <div class="label">Accessibility score</div>
+          </div>
+          <div class="stat">
+            <div class="num">0.6s</div>
+            <div class="label">Avg. load time</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="container">
+        <h2>Get in touch</h2>
+        <p>Tell us about your project and we'll get back quickly.</p>
+        <form id="contact-form" class="contact-form" novalidate>
+          <div class="fields">
+            <label>
+              <span>Name</span>
+              <input type="text" name="name" required aria-required="true" />
+            </label>
+            <label>
+              <span>Email</span>
+              <input type="email" name="email" required aria-required="true" />
+            </label>
+          </div>
+          <label class="full">
+            <span>Message</span>
+            <textarea name="message" rows="5" required aria-required="true"></textarea>
+          </label>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Send message</button>
+            <button type="button" id="mailto-fallback" class="btn btn-ghost">Open mail app</button>
+          </div>
+          <div id="form-status" role="status" aria-live="polite" class="status"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>© <span id="year"></span> Comfort — Built for humans.</div>
+      <div class="foot-links"><a href="#privacy">Privacy</a> · <a href="#terms">Terms</a></div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
