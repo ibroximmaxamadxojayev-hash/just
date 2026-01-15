@@ -1,6 +1,0 @@
-[build]
-  publish = "."
-  command = ""
-
-[context.production.environment]
-  # Add environment variables here if needed (e.g., API keys)
