@@ -1,0 +1,4 @@
+/bridge.js
+  Content-Type: application/javascript
+  Access-Control-Allow-Origin: *
+  Cache-Control: no-cache

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  margin:0;
+  display:flex;
+  height:100vh;
+  font-family:system-ui;
+}
+#view { flex:2; border:0; }
+#chat {
+  flex:1;
+  border-left:1px solid #ccc;
+  display:flex;
+  flex-direction:column;
+}
+#log {
+  flex:1;
+  overflow:auto;
+  padding:8px;
+  background:#f5f5f5;
+}
+#msg { display:flex; }
+#msg input { flex:1; padding:8px; }
+#msg button { padding:8px; }
+
+/* cursor */
+#cursor {
+  position:fixed;
+  width:12px;
+  height:12px;
+  background:red;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:999999;
+}
+
+/* click ping */
+@keyframes ping {
+  from { opacity:1; transform:scale(1); }
+  to   { opacity:0; transform:scale(2); }
+}
+</style>
+</head>
+
+<body>
+
+<iframe id="view"></iframe>
+
+<div id="chat">
+  <div id="log"></div>
+  <div id="msg">
+    <input id="text">
+    <button id="send">Send</button>
+  </div>
+</div>
+
+<div id="cursor"></div>
+
+<script>
+const SERVER = "https://just.up.railway.app";
+const view = document.getElementById("view");
+const log  = document.getElementById("log");
+const text = document.getElementById("text");
+const send = document.getElementById("send");
+const cursor = document.getElementById("cursor");
+
+// Pull snapshot
+async function pull(){
+  const r = await fetch(SERVER + "/last", { cache:"no-store" });
+  const html = await r.text();
+  view.src = URL.createObjectURL(new Blob([html], {type:"text/html"}));
+}
+setInterval(pull, 1200);
+
+// Receive streams
+window.addEventListener("message", e=>{
+  if(e.data.type==="CHAT"){
+    log.innerHTML += "<div><b>Host:</b> "+e.data.text+"</div>";
+    log.scrollTop = log.scrollHeight;
+  }
+  if(e.data.type==="SCROLL"){
+    view.contentWindow.scrollTo(e.data.x, e.data.y);
+  }
+  if(e.data.type==="CURSOR"){
+    cursor.style.left = e.data.x+"px";
+    cursor.style.top  = e.data.y+"px";
+  }
+  if(e.data.type==="CLICK"){
+    const dot = document.createElement("div");
+    dot.style = `
+      position:fixed;
+      left:${e.data.x}px;
+      top:${e.data.y}px;
+      width:20px;
+      height:20px;
+      border:2px solid red;
+      border-radius:50%;
+      transform:translate(-50%,-50%);
+      pointer-events:none;
+      animation:ping .5s ease-out forwards;
+    `;
+    document.body.appendChild(dot);
+    setTimeout(()=>dot.remove(),500);
+  }
+});
+
+// Send chat
+send.onclick = ()=>{
+  const v=text.value;
+  text.value="";
+  log.innerHTML+="<div><b>You:</b> "+v+"</div>";
+  parent.postMessage({type:"CHAT", text:v},"*");
+};
+</script>
+
+</body>
+</html>
