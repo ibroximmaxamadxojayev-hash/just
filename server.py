@@ -1,9 +1,10 @@
-from flask import Flask, request, send_from_directory, Response
+from flask import Flask, send_from_directory, request
 import os
 
 app = Flask(__name__)
-HERE = os.path.dirname(__file__)
-LAST = os.path.join(HERE, "last.html")
+
+BASE = os.path.dirname(__file__)
+LAST = os.path.join(BASE, "last.html")
 
 @app.route("/")
 def home():
@@ -11,11 +12,11 @@ def home():
 
 @app.route("/frame.html")
 def frame():
-    return send_from_directory(HERE, "frame.html")
+    return send_from_directory(BASE, "frame.html")
 
 @app.route("/bridge.js")
 def bridge():
-    return send_from_directory(HERE, "bridge.js")
+    return send_from_directory(BASE, "bridge.js")
 
 @app.route("/save", methods=["POST"])
 def save():
@@ -27,8 +28,5 @@ def save():
 @app.route("/last")
 def last():
     if os.path.exists(LAST):
-        return send_from_directory(HERE, "last.html")
+        return send_from_directory(BASE, "last.html")
     return "No snapshot yet"
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
