@@ -3,6 +3,7 @@ export {};
 (() => {
   const FRAME_URL = "https://just.up.railway.app/frame.html";
 
+
   const box = document.createElement("div");
   box.id = "helper-box";
   box.style = `
@@ -118,3 +119,4 @@ export {};
   });
 
 })();
+
